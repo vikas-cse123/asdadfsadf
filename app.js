@@ -107,6 +107,7 @@ const META_DATASET_ID = 1511299484126649
 const META_ACCESS_TOKEN = "EAAd0fc2AKMQBRyNZAOe2hZC9jZCxbaqTepZCJAheosUPQKhMIZAwaJI2ZBHaMerYM9XhZAWZAMubeArpTMSgw2JX1iManVsvRn5jlWZB2IjokaXIK4kHGZAjVJi1lqF1Ypr4u6ZB3B3VC26YQbNA9ZCotunPZAKl1qMApZCx7CdLOKayJPFRbPwtFRpgjbHHziYdJPhgZCRNgZDZD";
 
 async function sendLeadEventToMeta(ctwaClid) {
+  console.log("function runnning sendLeadEventToMeta");
   if (!ctwaClid) return;
   const body = {
     data: [
@@ -130,13 +131,21 @@ async function sendLeadEventToMeta(ctwaClid) {
       body: JSON.stringify(body),
     }
   );
+console.log("this is response");
+console.log(res);
+ let text;
+if (!res.ok) {
+  text = await res.text();
+  console.log("Meta CAPI error:", res.status, text);
+} else {
+  text = await res.text();
+  console.log("Meta CAPI Lead event sent for", ctwaClid, text);
+}
 
-  if (!res.ok) {
-    const text = await res.text();
-    console.log("Meta CAPI error:", res.status, text);
-  } else {
-    console.log("Meta CAPI Lead event sent for", ctwaClid);
-  }
+  // const data = await res.json()
+  // console.log("Interakt ");
+  // console.log(data);
+
 }
 
 

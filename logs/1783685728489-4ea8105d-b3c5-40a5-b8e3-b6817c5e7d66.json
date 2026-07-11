@@ -1,0 +1,62 @@
+{
+  "id": "595db742-336f-42a4-8328-f069b694c6c5",
+  "event": "message.received",
+  "occurred_at": "2026-07-10T12:15:28.446Z",
+  "account_id": "719eab51-8dd1-4e45-9096-1b875de1b8b3",
+  "data": {
+    "conversation_id": "7f7d428e-75de-467a-8498-49ae4a7ea8ae",
+    "contact_id": "9f10c957-8a19-456a-b214-b5887a1c38dd",
+    "whatsapp_message_id": "wamid.HBgMOTE4NzM3MDY0NDUzFQIAEhggQTVEN0NBN0U2RTg1MjhBODE3MTJFOTZDQzRDRTREQTEA",
+    "content_type": "interactive",
+    "text": "Yes, Let's Start",
+    "raw_payload": {
+      "object": "whatsapp_business_account",
+      "entry": [
+        {
+          "id": "1042625644965148",
+          "changes": [
+            {
+              "value": {
+                "messaging_product": "whatsapp",
+                "metadata": {
+                  "display_phone_number": "918604044556",
+                  "phone_number_id": "1237170136146543"
+                },
+                "contacts": [
+                  {
+                    "profile": {
+                      "name": "Interscale Marketing"
+                    },
+                    "wa_id": "918737064453",
+                    "user_id": "IN.2611525472597312"
+                  }
+                ],
+                "messages": [
+                  {
+                    "context": {
+                      "from": "918604044556",
+                      "id": "wamid.HBgMOTE4NzM3MDY0NDUzFQIAERgSMjQzQ0Q0MDI1MDdGMjg2RUJGAA=="
+                    },
+                    "from": "918737064453",
+                    "from_user_id": "IN.2611525472597312",
+                    "id": "wamid.HBgMOTE4NzM3MDY0NDUzFQIAEhggQTVEN0NBN0U2RTg1MjhBODE3MTJFOTZDQzRDRTREQTEA",
+                    "timestamp": "1783685721",
+                    "type": "interactive",
+                    "interactive": {
+                      "type": "button_reply",
+                      "button_reply": {
+                        "id": "yes",
+                        "title": "Yes, Let's Start"
+                      }
+                    }
+                  }
+                ]
+              },
+              "field": "messages"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

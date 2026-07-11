@@ -1,0 +1,54 @@
+{
+  "id": "d2701428-690e-4d35-8b9c-74e534b22bd8",
+  "event": "message.received",
+  "occurred_at": "2026-07-10T10:00:47.419Z",
+  "account_id": "719eab51-8dd1-4e45-9096-1b875de1b8b3",
+  "data": {
+    "conversation_id": "7f7d428e-75de-467a-8498-49ae4a7ea8ae",
+    "contact_id": "9f10c957-8a19-456a-b214-b5887a1c38dd",
+    "whatsapp_message_id": "wamid.HBgMOTE4NzM3MDY0NDUzFQIAEhggQTUwRDZBRjlEQzU2NTI5RUQ1OEREOUU1RUUzQzJBOUYA",
+    "content_type": "text",
+    "text": "singapore",
+    "raw_payload": {
+      "object": "whatsapp_business_account",
+      "entry": [
+        {
+          "id": "1042625644965148",
+          "changes": [
+            {
+              "value": {
+                "messaging_product": "whatsapp",
+                "metadata": {
+                  "display_phone_number": "918604044556",
+                  "phone_number_id": "1237170136146543"
+                },
+                "contacts": [
+                  {
+                    "profile": {
+                      "name": "Interscale Marketing"
+                    },
+                    "wa_id": "918737064453",
+                    "user_id": "IN.2611525472597312"
+                  }
+                ],
+                "messages": [
+                  {
+                    "from": "918737064453",
+                    "from_user_id": "IN.2611525472597312",
+                    "id": "wamid.HBgMOTE4NzM3MDY0NDUzFQIAEhggQTUwRDZBRjlEQzU2NTI5RUQ1OEREOUU1RUUzQzJBOUYA",
+                    "timestamp": "1783677636",
+                    "text": {
+                      "body": "singapore"
+                    },
+                    "type": "text"
+                  }
+                ]
+              },
+              "field": "messages"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

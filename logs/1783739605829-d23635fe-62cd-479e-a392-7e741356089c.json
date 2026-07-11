@@ -1,0 +1,54 @@
+{
+  "id": "e6c3ba1b-8f41-423e-b9cd-ad30de6b88eb",
+  "event": "message.received",
+  "occurred_at": "2026-07-11T03:13:25.876Z",
+  "account_id": "719eab51-8dd1-4e45-9096-1b875de1b8b3",
+  "data": {
+    "conversation_id": "7f7d428e-75de-467a-8498-49ae4a7ea8ae",
+    "contact_id": "9f10c957-8a19-456a-b214-b5887a1c38dd",
+    "whatsapp_message_id": "wamid.HBgMOTE4NzM3MDY0NDUzFQIAEhgWM0VCMDcxQTMwOTBFMDI5Q0QxOTdDQwA=",
+    "content_type": "text",
+    "text": "erewerrt",
+    "raw_payload": {
+      "object": "whatsapp_business_account",
+      "entry": [
+        {
+          "id": "1042625644965148",
+          "changes": [
+            {
+              "value": {
+                "messaging_product": "whatsapp",
+                "metadata": {
+                  "display_phone_number": "918604044556",
+                  "phone_number_id": "1237170136146543"
+                },
+                "contacts": [
+                  {
+                    "profile": {
+                      "name": "Interscale Marketing"
+                    },
+                    "wa_id": "918737064453",
+                    "user_id": "IN.2611525472597312"
+                  }
+                ],
+                "messages": [
+                  {
+                    "from": "918737064453",
+                    "from_user_id": "IN.2611525472597312",
+                    "id": "wamid.HBgMOTE4NzM3MDY0NDUzFQIAEhgWM0VCMDcxQTMwOTBFMDI5Q0QxOTdDQwA=",
+                    "timestamp": "1783739598",
+                    "text": {
+                      "body": "erewerrt"
+                    },
+                    "type": "text"
+                  }
+                ]
+              },
+              "field": "messages"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

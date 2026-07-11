@@ -1,0 +1,49 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "1535891488017256",
+      "changes": [
+        {
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "919873356044",
+              "phone_number_id": "1193878823808509"
+            },
+            "contacts": [
+              {
+                "profile": {
+                  "name": "Interscale Marketing"
+                },
+                "wa_id": "916387495389",
+                "user_id": "IN.1019908607632772"
+              }
+            ],
+            "messages": [
+              {
+                "context": {
+                  "from": "919873356044",
+                  "id": "wamid.HBgMOTE2Mzg3NDk1Mzg5FQIAERgSNzczQ0VBMTE2N0M0QzUyQzZFAA=="
+                },
+                "from": "916387495389",
+                "from_user_id": "IN.1019908607632772",
+                "id": "wamid.HBgMOTE2Mzg3NDk1Mzg5FQIAEhgUMkFDNEVDN0ExOUM0MThENjMyMDMA",
+                "timestamp": "1783674774",
+                "type": "interactive",
+                "interactive": {
+                  "type": "button_reply",
+                  "button_reply": {
+                    "id": "btn_2",
+                    "title": "4 Star ⭐⭐⭐⭐"
+                  }
+                }
+              }
+            ]
+          },
+          "field": "messages"
+        }
+      ]
+    }
+  ]
+}

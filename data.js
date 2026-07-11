@@ -17,6 +17,11 @@ const dataSchema = new mongoose.Schema(
     name: {
       type: String,
     },
+    // true once the lead event has been sent to Meta; prevents duplicate sends
+    isClidSend: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     strict: false,

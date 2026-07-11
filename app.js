@@ -79,6 +79,7 @@ app.post("/whatsapp/webhook", async (req, res) => {
       businessPhoneNumber,
       businessPhoneNumberId,
       name: customerName,
+      isClidSend: false,
     });
 
     console.log("saved new clid", savedData._id);
@@ -165,9 +166,11 @@ export async function sendLeadEventToMeta({
     },
   };
 
-  // Optional: only send event_id if you pass it
+  // Optional: only send event_id if you pass it.
+  // Meta dedups on (event_name + event_id); the Mongo doc _id is unique per
+  // lead, so this makes the send idempotent. Cast to string for a clean payload.
   if (eventId) {
-    event.event_id = eventId;
+    event.event_id = String(eventId);
   }
 
   const payload = {
@@ -233,7 +236,19 @@ app.post('/webhooks/flow', async (req, res) => {
     if (customerPhone) {
       const record = await Data.findOne({ customerPhoneNumber: customerPhone });
       if (record?.ctwaClid) {
-        await sendLeadEventToMeta(record.ctwaClid);
+        if (record.isClidSend) {
+          console.log("clid already sent to Meta, skipping", record.ctwaClid);
+          return;
+        }
+        await sendLeadEventToMeta({
+          ctwa_clid: record.ctwaClid,
+          phone: record.customerPhoneNumber,
+          eventId: record._id,
+        });
+        // only mark sent after a successful send; a throw above leaves it false so it retries
+        record.isClidSend = true;
+        await record.save();
+        console.log("marked isClidSend=true for", record._id);
       } else {
         console.log("no ctwa_clid on file for", customerPhone);
       }

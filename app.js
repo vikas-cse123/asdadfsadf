@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
-function deepFind(obj, targetKey) {
+export function deepFind(obj, targetKey) {
   if (!obj || typeof obj !== "object") return undefined;
 
   if (Object.prototype.hasOwnProperty.call(obj, targetKey) && obj[targetKey]) {
@@ -50,7 +50,7 @@ app.get("/health", (req, res) => {
   });
 });
 
-
+//Save clid to db 
 app.post("/whatsapp/webhook", async (req, res) => {
   res.status(200).json({ message: "received" });
 
@@ -106,11 +106,10 @@ const META_ACCESS_TOKEN = process.env.META_CAPI_ACCESS_TOKEN;
 
 async function sendLeadEventToMeta(ctwaClid) {
   if (!ctwaClid) return;
-
   const body = {
     data: [
       {
-        event_name: "Lead",
+        event_name: "LeadSubmitted",
         event_time: Math.floor(Date.now() / 1000),
         action_source: "business_messaging",
         messaging_channel: "whatsapp",
@@ -118,7 +117,6 @@ async function sendLeadEventToMeta(ctwaClid) {
       },
     ],
   };
-
   const res = await fetch(
     `https://graph.facebook.com/${META_API_VERSION}/${META_DATASET_ID}/events`,
     {
@@ -142,7 +140,8 @@ async function sendLeadEventToMeta(ctwaClid) {
 
 
 app.post('/webhooks/flow', async (req, res) => {
-  console.log(req.body.toString('utf8'));
+  console.log(JSON.parse(req.body));
+  
   const signature = req.headers['x-wacrm-signature'];
 
   if (!verifySignature(req.body, signature, WACRM_WEBHOOK_SECRET)) {
@@ -150,6 +149,7 @@ app.post('/webhooks/flow', async (req, res) => {
   }
 
   const event = JSON.parse(req.body);
+
   res.status(200).send('ok'); // ack quickly, then process
 
   try {

@@ -41,7 +41,13 @@ function deepFind(obj, targetKey) {
   }
   return undefined;
 }
-
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+  });
+});
 app.post("/whatsapp/webhook", async (req, res) => {
   res.status(200).json({ message: "received" });
 

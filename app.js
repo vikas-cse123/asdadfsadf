@@ -18,7 +18,15 @@ const META_DATASET_ID = process.env.META_DATASET_ID;
 const META_WABA_ID = process.env.META_WABA_ID;
 const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
 app.use((req, res, next) => {
-  console.log(`${new Date().toLocaleString()} ${req.method} ${req.originalUrl}`);
+
+  console.log(
+  `${new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    dateStyle: "short",
+    timeStyle: "medium",
+    hour12: true,
+  })} ${req.method} ${req.originalUrl}`
+);
   if(req.method === "POST"){
     const bodyToLog = Buffer.isBuffer(req.body) ? req.body.toString('utf8') : req.body;
 

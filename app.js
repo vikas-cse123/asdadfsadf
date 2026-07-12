@@ -19,13 +19,16 @@ const META_WABA_ID = process.env.META_WABA_ID;
 const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
 app.use((req, res, next) => {
   console.log(`${new Date().toLocaleString()} ${req.method} ${req.originalUrl}`);
-
-  const bodyToLog = Buffer.isBuffer(req.body) ? req.body.toString('utf8') : req.body;
+  if(req.method === "POST"){
+    const bodyToLog = Buffer.isBuffer(req.body) ? req.body.toString('utf8') : req.body;
 
   writeFile(
     `./logs/${Date.now()}-${crypto.randomUUID()}.json`,
     JSON.stringify(bodyToLog, null, 2)
   ).catch((err) => console.log("log write failed", err));
+  }
+
+
 
   next();
 });

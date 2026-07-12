@@ -177,8 +177,7 @@ export async function sendLeadEventToMeta({
     data: [event],
   };
 
-  console.log("Meta payload:");
-  console.log(JSON.stringify(payload, null, 2));
+
   const url = `https://graph.facebook.com/${META_GRAPH_VERSION}/${META_DATASET_ID}/events?access_token=${META_ACCESS_TOKEN}`;
 
   const response = await fetch(url, {
@@ -189,12 +188,13 @@ export async function sendLeadEventToMeta({
     },
     body: JSON.stringify(payload),
   });
+  console.log("Response meta");
   console.log(response);
 
   const result = await response.json();
-  console.log(result);
 
-  console.log("Meta response:");
+
+  console.log("Meta result:");
   console.log(JSON.stringify(result, null, 2));
 
   if (!response.ok || result.error) {
@@ -219,7 +219,6 @@ const verifySignature = (rawBody, signature, secret) => {
 
 
 app.post('/webhooks/flow', async (req, res) => {
-  console.log(JSON.parse(req.body));
   
   const signature = req.headers['x-wacrm-signature'];
 
@@ -235,8 +234,7 @@ app.post('/webhooks/flow', async (req, res) => {
     const customerPhone = event?.customer?.phone_number;
     if (customerPhone) {
       const record = await Data.findOne({ customerPhoneNumber: customerPhone });
-      console.log({record});
-      if (record?.ctwaClid) {
+     if (record?.ctwaClid) {
         if (record.isClidSend) {
           console.log("clid already sent to Meta, skipping", record.ctwaClid);
           return;

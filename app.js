@@ -5,6 +5,7 @@ import { connectDb } from "./db.js";
 import crypto from 'crypto';
 import {writeFile} from "fs/promises"
 import { mkdir } from "fs/promises";
+import { credentials } from "./credentials.js";
 await mkdir("./logs", { recursive: true });
 const app = express();
 const PORT = 4000;
@@ -12,11 +13,8 @@ const WACRM_WEBHOOK_SECRET = process.env.WACRM_WEBHOOK_SECRET
 await connectDb();
 app.use('/webhooks/flow', express.raw({ type: 'application/json' }));
 app.use('/whatsapp/webhook', express.json());
+c
 
-const META_GRAPH_VERSION = "v25.0";
-const META_DATASET_ID = process.env.META_DATASET_ID;
-const META_WABA_ID = process.env.META_WABA_ID;
-const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
 app.use((req, res, next) => {
 
   console.log(
@@ -40,6 +38,13 @@ app.use((req, res, next) => {
 
   next();
 });
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+  });
+});
 
 export function deepFind(obj, targetKey) {
   if (!obj || typeof obj !== "object") return undefined;
@@ -57,13 +62,7 @@ export function deepFind(obj, targetKey) {
   }
   return undefined;
 }
-app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "ok",
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
-  });
-});
+
 
 //Save clid to db 
 app.post("/whatsapp/webhook", async (req, res) => {
@@ -254,12 +253,21 @@ console.log("abcdefghijlkldsakdsfkdsafkl");
   console.log("event");
   console.log(event);
 
+
+  let event = JSON.parse(req.body);
+  console.log("object");
+  console.log(req.body);
+  console.log(event);
+  
   res.status(200).send('ok'); // ack quickly, then process
 
   try {
     const customerPhone = event?.customer?.phone_number;
+    const businessPhoneNumberId = event?.business?.phone_number_id
+    const config = credentials[businessPhoneNumberId]
     if (customerPhone) {
-      const record = await Data.findOne({ customerPhoneNumber: customerPhone });
+      const record = await Data.findOne({ customerPhoneNumber: customerPhone,businessPhoneNumberId:businessPhoneNumberId });
+      console.log(record);
      if (record?.ctwaClid) {
         if (record.isClidSend) {
           console.log("clid already sent to Meta, skipping", record.ctwaClid);

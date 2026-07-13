@@ -63,7 +63,7 @@ export function deepFind(obj, targetKey) {
   return undefined;
 }
 
-
+const META_GRAPH_VERSION = "v25.0";
 //Save clid to db 
 app.post("/whatsapp/webhook", async (req, res) => {
   res.status(200).json({ message: "received" });
@@ -141,6 +141,9 @@ export async function sendLeadEventToMeta({
   eventId,
   value = 1,
   leadStage = "qualified_lead",
+  META_DATASET_ID,
+  META_WABA_ID,
+  META_ACCESS_TOKEN
 }) {
   if (!META_DATASET_ID) {
     throw new Error("META_DATASET_ID missing in .env");
@@ -247,17 +250,12 @@ app.post('/webhooks/flow', async (req, res) => {
   if (!verifySignature(req.body, signature, WACRM_WEBHOOK_SECRET)) {
     return res.status(401).send('Invalid signature');
   }
-console.log("abcdefghijlkldsakdsfkdsafkl");
-  console.log(req.body);
+
   const event = JSON.parse(req.body);
-  console.log("event");
-  console.log(event);
 
 
-  let event = JSON.parse(req.body);
-  console.log("object");
-  console.log(req.body);
-  console.log(event);
+
+ 
   
   res.status(200).send('ok'); // ack quickly, then process
 
@@ -265,9 +263,10 @@ console.log("abcdefghijlkldsakdsfkdsafkl");
     const customerPhone = event?.customer?.phone_number;
     const businessPhoneNumberId = event?.business?.phone_number_id
     const config = credentials[businessPhoneNumberId]
+    console.log({config});
     if (customerPhone) {
       const record = await Data.findOne({ customerPhoneNumber: customerPhone,businessPhoneNumberId:businessPhoneNumberId });
-      console.log(record);
+      console.log({record});
      if (record?.ctwaClid) {
         if (record.isClidSend) {
           console.log("clid already sent to Meta, skipping", record.ctwaClid);
@@ -277,6 +276,10 @@ console.log("abcdefghijlkldsakdsfkdsafkl");
           ctwa_clid: record.ctwaClid,
           phone: record.customerPhoneNumber,
           eventId: record._id,
+          META_ACCESS_TOKEN:config.META_ACCESS_TOKEN,
+          META_WABA_ID:config.META_WABA_ID,
+          META_DATASET_ID:config.META_DATASET_ID
+          
         });
         // only mark sent after a successful send; a throw above leaves it false so it retries
         record.isClidSend = true;

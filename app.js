@@ -250,6 +250,7 @@ app.post('/webhooks/flow', async (req, res) => {
   }
 
   const event = JSON.parse(req.body);
+  console.log(event);
 
   res.status(200).send('ok'); // ack quickly, then process
 

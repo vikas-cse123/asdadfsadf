@@ -136,7 +136,7 @@ function normalizePhone(phone) {
 export async function sendLeadEventToMeta({
   phone,
   ctwa_clid,
-  eventName = "LeadSubmitted",
+  eventName = "Purchase",
   eventId,
   value = 1,
   leadStage = "qualified_lead",

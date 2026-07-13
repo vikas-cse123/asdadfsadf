@@ -13,7 +13,6 @@ const WACRM_WEBHOOK_SECRET = process.env.WACRM_WEBHOOK_SECRET
 await connectDb();
 app.use('/webhooks/flow', express.raw({ type: 'application/json' }));
 app.use('/whatsapp/webhook', express.json());
-c
 
 app.use((req, res, next) => {
 
